@@ -67,15 +67,27 @@
     </div>
   </main>
 </div>
-
+<script src="https://www.gstatic.com/firebase/4.5.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
 <!-- Firebase -->
-<script src="/__/firebase/4.5.0/firebase-app.js"></script>
-<script src="/__/firebase/4.5.0/firebase-auth.js"></script>
-<script src="/__/firebase/init.js"></script>
+<!-- <script src="/__/firebase/4.5.0/firebase-auth.js"></script> -->
+<!-- <script src="/__/firebase/init.js"></script> -->
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAo5G3rQkCXc6uOS7WLdoBkFUoadrCQmtw",
+      authDomain: "test-3261e.firebaseapp.com",
+      databaseURL: "https://test-3261e.firebaseio.com",
+      projectId: "test-3261e",
+    };
+    firebase.initializeApp(config);
+  </script>
 <script src="main.js"></script>
 </body>
 </html>

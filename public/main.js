@@ -11,10 +11,12 @@
     //    console.log("Error: " + error.code);
     // });
 
+    firebase.database().ref().child("spotifyAccessToken").once('value').then(function(snapshot) {
+      console.log(snapshot.val());
+    });
+
 // Initializes the Demo.
-$.get('https://test-3216e.firebaseapp.com/data', {}, function(data){
-    console.log(data)
-});
+
 function Demo() {
   document.addEventListener('DOMContentLoaded', function() {
     // Shortcuts to DOM Elements.
