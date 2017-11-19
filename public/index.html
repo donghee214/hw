@@ -21,52 +21,46 @@
 
   <!-- Material Design Lite -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-orange.min.css">
+ <!--  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-orange.min.css"> -->
   <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<body id="body">
 
-  <!-- Header section containing title -->
-  <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-    <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-      <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--8-col-desktop">
-        <h3>Sign in with Spotify demo</h3>
-      </div>
-    </div>
-  </header>
-  <main class="mdl-layout__content mdl-color--grey-100">
-    <div class="mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-
-      <!-- Card containing the sign-in UI -->
-      <div id="demo-signed-out-card" class="mdl-card mdl-shadow--2dp mdl-cell">
-        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <p>
-            This web application demonstrates how you can Sign In with Spotify to Firebase Authentication.
-            <strong>Now sign in!</strong>
-          </p>
-          <button id="demo-sign-in-button" class="mdl-color-text--grey-700 mdl-button--raised mdl-button mdl-js-button mdl-js-ripple-effect"></button>
-        </div>
-      </div>
-
-      <!-- Card containing the signed-in UI -->
-      <div id="demo-signed-in-card" class="mdl-card mdl-shadow--2dp mdl-cell">
-        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <p>
-            Welcome <span id="demo-name-container"></span><br>
-            Your email is: <span id="demo-email-container"></span><br>
-            Your Firebase User ID is: <span id="demo-uid-container"></span><br>
-            Your profile picture: <img id="demo-profile-pic">
-          </p>
-          <button id="demo-sign-out-button" class="mdl-color-text--grey-700 mdl-button--raised mdl-button mdl-js-button mdl-js-ripple-effect">Sign out</button>
-          <button id="demo-delete-button" class="mdl-color-text--grey-700 mdl-button--raised mdl-button mdl-js-button mdl-js-ripple-effect">Delete account</button>
-        </div>
-      </div>
-    </div>
-  </main>
+<div id="backgroundImage">
 </div>
+<div class="title">
+  <h1 class="name" id="muse">MUSE.</h1>
+</div>
+
+
+
+<!--  <div class="title" id="muse">
+  <h1 class="name">MUSE.</h1>
+</div> -->
+<!-- test -->
+<div class="spotifySignIn" id="demo-sign-in-button" onclick="green()">
+
+</div>
+
+<div class="options" id="options">
+  <div>
+    <h2 id="create">CREATE A ROOM</h2>
+  </div>
+      <form id="roomId">
+          <div class="group">      
+            <input id="input1" type="text" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label id="label">ROOM CODE</label>
+          </div>
+      </form>
+  <div>
+    <h2 id="join"><a href="C:\musique\spotifyAPI\web-api-auth-examples\authorization_code\public\index.html">JOIN A ROOM</a></h2>
+  </div>
+</div>
+
 <script src="https://www.gstatic.com/firebase/4.5.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>

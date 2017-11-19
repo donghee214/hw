@@ -43,3 +43,8 @@ html, body {
   #demo-delete-button {
     margin-left: 20px;
   }
+
+  .TEST{
+    width: 150px;
+    height: 150px;
+  }
