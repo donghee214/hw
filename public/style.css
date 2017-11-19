@@ -150,6 +150,17 @@ body{
     left: 0;
 }
 
+p{
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    width: 80%;
+    left: 0;
+    height: 100%;
+    margin: 0;
+    z-index: 2;
+}
+
 .name{
   position: absolute;
   top: 35vh;
@@ -365,11 +376,22 @@ color: white !important;
     flex-direction: column;
 }
 
+.queueContainer{
+    width: 100%;
+    height: 90vh;
+    position: absolute;
+    overflow-y: scroll;
+    top: 11vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .songBox{
       width: 77.5%;
   height: 10vh;
   position: relative;
   padding-left: 22.5%;
+      z-index: 2;
 }
 
 .songTitle{

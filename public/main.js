@@ -17,7 +17,69 @@ var createRoom = function(){
 
 }
 
+var queue;
 
+var initQueue = function()
+{ 
+  firebase.database().ref().child('songs').once('value', function(snapshot){
+    queue = snapshot.val();
+  });
+  createQueue()
+
+}
+
+var createQueue = function(){
+  var queueElem = document.createElement('div');
+  queueElem.className = "queueContainer";
+  var arr = createSongBoxesQueue();
+}
+var createSongBoxesQueue = function(){
+  var ret = []
+  for(var i = 0; i < queue.length; i++){
+    var outerBlock = document.createElement('div');
+    outerBlock.className = "songBox";
+    var songTitle = document.createElement('h2');
+    songTitle.className = "songTitle";
+    songTitle.innerHTML = queue.name;
+    var artistName = document.createElement('h3');
+    artistName.className = "artistName";
+    artistName.innerHTML = arr.tracks.items[i].artists[0].name;
+    var image = document.createElement('img');
+    image.className = "imageName";
+    image.src = arr.tracks.items[i].album.images[0].url;
+    var songLength = document.createElement('h3');
+    songLength.className = 'songLength';
+    songLength.innerHTML = minTommss(arr.tracks.items[i].duration_ms/divide);
+    var sampleButton = document.createElement('div');
+    sampleButton.className += "sampleButton";
+    var idArray = document.createElement('p');
+    // idArray.style.display = "none";
+    idArray.innerHTML = arr.tracks.items[i].id;
+    var songPlaybackUri = document.createElement('p');
+    songPlaybackUri.style.display = "none";
+    songPlaybackUri.innerHTML = arr.tracks.items[i].preview_url;
+    outerBlock.appendChild(idArray);
+    outerBlock.appendChild(songPlaybackUri);
+    outerBlock.appendChild(songTitle);
+    outerBlock.appendChild(artistName);
+    outerBlock.appendChild(sampleButton);
+    outerBlock.appendChild(image);
+    outerBlock.appendChild(songLength);
+    console.log(arr.tracks.items)
+
+    outerBlock.addEventListener('click', function(e){
+      var arr = []
+      console.log(e.path[1].childNodes)
+      for(var i =0; i < e.path[1].childNodes.length; i++){
+          arr.push(e.path[1].childNodes[i].innerHTML)
+      }
+      setSongData(arr[0], arr[2], arr[3], arr[1], 0)
+    })
+    ret.push(outerBlock)
+  }
+
+  return ret
+}
 
 
 var roomName;
@@ -51,7 +113,8 @@ var createPlaylist = function(){
   darkBackground.className += "backgroundDark";
   darkBackground.appendChild(controlButtons);
   document.getElementById('body').appendChild(darkBackground);
-  document.getElementsByClassName('addSongButton')[0].addEventListener('click', searchSong)
+  document.getElementsByClassName('addSongButton')[0].addEventListener('click', searchSong);
+  initQueue();
 }
 
 var searchSong = function(){
@@ -75,65 +138,90 @@ var previous = function(){
 
 
 
+function minTommss(minutes){
+ var min = Math.floor(Math.abs(minutes));
+ var sec = Math.floor((Math.abs(minutes) * 60) % 60);
+ return (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
+}
+
+
+
+
+
+const divide = 60000;
+
 
 
 var createSongBoxes = function(arr){
   var ret = []
-  for(var i = 0; i < arr.length; i++){
+  for(var i = 0; i < arr.tracks.items.length; i++){
     var outerBlock = document.createElement('div');
     outerBlock.className = "songBox";
     var songTitle = document.createElement('h2');
     songTitle.className = "songTitle";
-    songTitle.innerHTML = arr[i].name;
+    songTitle.innerHTML = arr.tracks.items[i].name;
     var artistName = document.createElement('h3');
     artistName.className = "artistName";
-    artistName.innerHTML = arr[i].artist;
+    artistName.innerHTML = arr.tracks.items[i].artists[0].name;
     var image = document.createElement('img');
     image.className = "imageName";
-    image.src = arr[i].imageUrl;
+    image.src = arr.tracks.items[i].album.images[0].url;
     var songLength = document.createElement('h3');
     songLength.className = 'songLength';
-    songLength.innerHTML = arr[i].songLength;
+    songLength.innerHTML = minTommss(arr.tracks.items[i].duration_ms/divide);
     var sampleButton = document.createElement('div');
     sampleButton.className += "sampleButton";
     var idArray = document.createElement('p');
-    idArray.style.display = "none";
-    idArray.innerHTML = arr[i].id;
+    // idArray.style.display = "none";
+    idArray.innerHTML = arr.tracks.items[i].id;
     var songPlaybackUri = document.createElement('p');
     songPlaybackUri.style.display = "none";
-    songPlaybackUri.innerHTML = arr[i].songPlaybackUri;
+    songPlaybackUri.innerHTML = arr.tracks.items[i].preview_url;
+    outerBlock.appendChild(idArray);
+    outerBlock.appendChild(songPlaybackUri);
     outerBlock.appendChild(songTitle);
     outerBlock.appendChild(artistName);
     outerBlock.appendChild(sampleButton);
     outerBlock.appendChild(image);
     outerBlock.appendChild(songLength);
-    outerBlock.appendChild(idArray);
-    outerBlock.appendChild(songPlaybackUri);
+    console.log(arr.tracks.items)
+
+    outerBlock.addEventListener('click', function(e){
+      var arr = []
+      console.log(e.path[1].childNodes)
+      for(var i =0; i < e.path[1].childNodes.length; i++){
+          arr.push(e.path[1].childNodes[i].innerHTML)
+      }
+      setSongData(arr[0], arr[2], arr[3], arr[1], 0)
+    })
     ret.push(outerBlock)
   }
+
   return ret
 }
 
-var returnResults = function(songName){
-  search(songName)
 
+var setSongData = function(songId,name,artists,preview_url,vote) {
+    firebase.database().ref('songs/' + songId).set({
+      name:name,
+      artists:artists,
+      preview_url: preview_url,
+      voteCount: vote
+    });
+  }
+
+var returnResults = function(songName){
+  if (document.getElementsByClassName('songContainer')[0]){
+    document.getElementsByClassName('songContainer')[0].remove();
+  }
+  search(songName)
 }
 
 var returnResults1 = function(result){
-  console.log(result)
+  var test = result;
   var songContainer = document.createElement("div")
   songContainer.className = "songContainer";
-  var song1 = {
-    name: "songName",
-    artist: "artistName",
-    imageUrl: "add.svg",
-    songLength: "3:26",
-    sampleUrl: 'test',
-    id: 'uniqueId',
-    songPlaybackUri: 'someOtherId'
-  }
-  var arraySongs = [song1, song1, song1, song1, song1, song1];
-  var arraySongsObjects = createSongBoxes(arraySongs)
+  var arraySongsObjects = createSongBoxes(test)
 
   for (var i = 0; i < arraySongsObjects.length; i++){
     songContainer.appendChild(arraySongsObjects[i])
@@ -2107,7 +2195,7 @@ function search(name)
 
 {
   var dummy = null;
-  spotifyApi.searchTracks(name)
+  spotifyApi.searchTracks(name, {'market': 'CA'},)
   .then(function(data) {
      returnResults1(data)
   }, function(err) {
